@@ -34,6 +34,7 @@ import { CssBaseline } from '@mui/material';
 import Button from '@mui/material/Button';
 import { Link, Outlet } from 'react-router-dom';
 import StreamList from './StreamList';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 const drawerWidth = 240;
 
@@ -65,6 +66,8 @@ const DrawerHeader = styled('div')(({ theme }) => ({
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
+    backgroundColor: '#0F0B46',
+    color: '#FB2961',
 }));
 
 const AppBar = styled(MuiAppBar, {
@@ -85,6 +88,21 @@ const AppBar = styled(MuiAppBar, {
     }),
 }));
 
+const theme = createTheme({
+    components: {
+        MuiDrawer: {
+            styleOverrides: {
+                paper: {
+                    backgroundColor: 'pink',
+                    color: 'red',
+                    boxSizing: 'border-box',
+                    width: drawerWidth,
+                },
+            },
+        },
+    },
+});
+
 const Drawer = styled(MuiDrawer, {
     shouldForwardProp: (prop) => prop !== 'open',
 })(({ theme, open }) => ({
@@ -92,6 +110,7 @@ const Drawer = styled(MuiDrawer, {
     flexShrink: 0,
     whiteSpace: 'nowrap',
     boxSizing: 'border-box',
+
     ...(open && {
         ...openedMixin(theme),
         '& .MuiDrawer-paper': openedMixin(theme),
@@ -124,13 +143,21 @@ export default function MenuBar({ data }) {
 
     const indexLastStreamer = currentStreamers * postsPerPage;
     const indexFirstStreamer = indexLastStreamer - postsPerPage;
-    const currentActiveStreamers = data.slice(indexFirstStreamer, indexLastStreamer);
-    
+    const currentActiveStreamers = data.slice(
+        indexFirstStreamer,
+        indexLastStreamer
+    );
 
-    
     return (
         <>
-            <AppBar position="fixed" open={open}>
+            <AppBar
+                position="fixed"
+                open={open}
+                sx={{
+                    backgroundColor: '#0F0B46',
+                    color: '#FB2961',
+                }}
+            >
                 <Toolbar>
                     <IconButton
                         color="inherit"
@@ -149,9 +176,23 @@ export default function MenuBar({ data }) {
                     </Typography>
                 </Toolbar>
             </AppBar>
-            <Drawer variant="permanent" open={open}>
+            <Drawer
+                variant="permanent"
+                open={open}
+                PaperProps={{
+                    sx: {
+                        backgroundColor: '#0F0B46',
+                        color: 'orange',
+                    },
+                }}
+            >
                 <DrawerHeader>
-                    <IconButton onClick={handleDrawerClose}>
+                    <IconButton
+                        onClick={handleDrawerClose}
+                        sx={{
+                            color: '#FB2961',
+                        }}
+                    >
                         {theme.direction === 'rtl' ? (
                             <ChevronRightIcon />
                         ) : (
@@ -160,7 +201,12 @@ export default function MenuBar({ data }) {
                     </IconButton>
                 </DrawerHeader>
                 <Divider />
-                <List>
+                <List
+                    sx={{
+                        backgroundColor: '#0F0B46',
+                        color: '#FB2961',
+                    }}
+                >
                     {currentActiveStreamers.map((users, index) => (
                         <ListItem
                             button
