@@ -35,7 +35,6 @@ import Button from '@mui/material/Button';
 import { Link, Outlet } from 'react-router-dom';
 import StreamList from './StreamList';
 
-
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -103,8 +102,8 @@ const Drawer = styled(MuiDrawer, {
     }),
 }));
 
-export default function MenuBar({data}) {
-        const theme = useTheme();
+export default function MenuBar({ data }) {
+    const theme = useTheme();
     const [open, setOpen] = React.useState(false);
 
     const handleDrawerOpen = () => {
@@ -120,6 +119,15 @@ export default function MenuBar({data}) {
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
+    const [currentStreamers] = useState(1);
+    const [postsPerPage] = useState(6);
+
+    const indexLastStreamer = currentStreamers * postsPerPage;
+    const indexFirstStreamer = indexLastStreamer - postsPerPage;
+    const currentActiveStreamers = data.slice(indexFirstStreamer, indexLastStreamer);
+    
+
+    
     return (
         <>
             <AppBar position="fixed" open={open}>
@@ -153,8 +161,13 @@ export default function MenuBar({data}) {
                 </DrawerHeader>
                 <Divider />
                 <List>
-                    {data.map((users, index) => (
-                        <ListItem button key={index}>
+                    {currentActiveStreamers.map((users, index) => (
+                        <ListItem
+                            button
+                            key={index}
+                            component={Link}
+                            to={`/streamerslist/${users.channel_id}`}
+                        >
                             <ListItemIcon>
                                 <Avatar
                                     sx={{ bgcolor: red[500] }}
@@ -170,8 +183,8 @@ export default function MenuBar({data}) {
                 <Divider />
             </Drawer>
             <Box sx={{ display: 'flex' }}>
-            <StreamList data={data}/>
-        </Box>
+                <StreamList data={data} />
+            </Box>
         </>
     );
 }

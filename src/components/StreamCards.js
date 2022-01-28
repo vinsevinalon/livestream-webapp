@@ -30,43 +30,52 @@ import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Grid from '@mui/material/Grid';
-import { CssBaseline } from '@mui/material';
+import { CardActionArea, CssBaseline } from '@mui/material';
 import Button from '@mui/material/Button';
 import { Link, Outlet } from 'react-router-dom';
 
-export default function StreamCards({data}) {
+export default function StreamCards({ data }) {
     return (
         <>
             {data.map((users, index) => (
                 <Grid item xs={2} sm={4} md={2} key={index}>
-                    <Card key={index}>
-                        <CardMedia
-                            component="img"
-                            height="300"
-                            image={users.cover_image}
-                        />
-                        <CardContent
-                            action={
-                                <IconButton aria-label="settings">
-                                    <MoreVertIcon />
-                                </IconButton>
-                            }
-                            title={users.nickname}
+                    <Card
+                        key={index}
+                        variant="outlined"
+                    >
+                        <CardActionArea
+                            component={Link}
+                            to={`/streamerslist/${users.channel_id}`}
                         >
-                            <CardActions>
-                                <Avatar
-                                    sx={{ width: 30, height: 30, mr: 2 }}
-                                    aria-label="recipe"
-                                    src={users.avatar}
-                                    name="Hello"
-                                ></Avatar>
-                                <Typography variant="subtitle1" component="h6">
-                                    <Link to={`/streamerslist/${users.channel_id}`}>
+                            <CardMedia
+                                component="img"
+                                height="300"
+                                image={users.cover_image}
+                            />
+                            <CardContent
+                                action={
+                                    <IconButton aria-label="settings">
+                                        <MoreVertIcon />
+                                    </IconButton>
+                                }
+                                title={users.nickname}
+                            >
+                                <CardActions>
+                                    <Avatar
+                                        sx={{ width: 30, height: 30, mr: 2 }}
+                                        aria-label="recipe"
+                                        src={users.avatar}
+                                        name="Hello"
+                                    ></Avatar>
+                                    <Typography
+                                        variant="subtitle1"
+                                        component="h6"
+                                    >
                                         {users.nickname}
-                                    </Link>
-                                </Typography>
-                            </CardActions>
-                        </CardContent>
+                                    </Typography>
+                                </CardActions>
+                            </CardContent>
+                        </CardActionArea>
                     </Card>
                 </Grid>
             ))}
