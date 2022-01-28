@@ -1,25 +1,43 @@
-import logo from './logo.svg';
 import './App.css';
+import * as React from 'react';
+import { styled } from '@mui/material/styles';
+import { useState, useEffect } from 'react';
+import AppContainer from './components/AppContainer';
+import { Routes, Route } from 'react-router-dom';
+import StreamDetails from './components/StreamDetails';
+import StreamList from './components/StreamList';
+import { Link, Outlet } from 'react-router-dom';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const API_URL = 'https://liveapi.kumu.live/site/get-browse-live';
+    const [users, setUsers] = useState([]);
+
+    useEffect(() => {
+        async function fetchUser() {
+            let res = await fetch(API_URL);
+            let data = await res.json();
+            setUsers(data.data.lives);
+        }
+
+        fetchUser();
+    }, []);
+    console.log(users);
+    return (
+        <div className="App">
+            <Routes>
+                <Route path="/" element={<AppContainer data={users} />} >
+                    <Route
+                        path="/streamerslist"
+                        element={<StreamList data={users} />}
+                    />
+                    <Route
+                        path="/streamers/:name"
+                        element={<StreamDetails data={users} />}
+                    />
+                </Route>
+            </Routes>
+        </div>
+    );
 }
 
 export default App;
