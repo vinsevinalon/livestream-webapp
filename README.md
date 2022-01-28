@@ -1,7 +1,8 @@
 ## Available Scripts
 
 In the project directory, you can run:
-### Clone the repository.
+### `Clone the repository`
+`git clone https://github.com/vinsevinalon/livestream-webapp.git`
 ### `npm install`
 To install all the dependecies.
 
