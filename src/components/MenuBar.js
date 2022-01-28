@@ -152,14 +152,16 @@ export default function MenuBar({ data }) {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Box
-                        component="img"
-                        sx={{
-                            height: 50,
-                        }}
-                        alt="Your logo."
-                        src={logo}
-                    />
+                    <Link to="/">
+                        <Box
+                            component="img"
+                            sx={{
+                                height: 50,
+                            }}
+                            alt="Your logo."
+                            src={logo}
+                        />
+                    </Link>
                 </Toolbar>
             </AppBar>
             <Drawer
