@@ -6,7 +6,6 @@ import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
-import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -15,26 +14,12 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
-import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
-import CardMedia from '@mui/material/CardMedia';
-import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
-import Collapse from '@mui/material/Collapse';
 import Avatar from '@mui/material/Avatar';
 import { red } from '@mui/material/colors';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import Grid from '@mui/material/Grid';
-import { CssBaseline } from '@mui/material';
-import Button from '@mui/material/Button';
-import { Link, Outlet } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import StreamList from './StreamList';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { createTheme } from '@mui/material/styles';
+import logo from '../assets/logo.png';
 
 const drawerWidth = 240;
 
@@ -64,7 +49,6 @@ const DrawerHeader = styled('div')(({ theme }) => ({
     alignItems: 'center',
     justifyContent: 'flex-end',
     padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
     ...theme.mixins.toolbar,
     backgroundColor: '#0F0B46',
     color: '#FB2961',
@@ -135,9 +119,6 @@ export default function MenuBar({ data }) {
 
     const [expanded, setExpanded] = React.useState(false);
 
-    const handleExpandClick = () => {
-        setExpanded(!expanded);
-    };
     const [currentStreamers] = useState(1);
     const [postsPerPage] = useState(6);
 
@@ -171,9 +152,14 @@ export default function MenuBar({ data }) {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" noWrap component="div">
-                        Kumu
-                    </Typography>
+                    <Box
+                        component="img"
+                        sx={{
+                            height: 50,
+                        }}
+                        alt="Your logo."
+                        src={logo}
+                    />
                 </Toolbar>
             </AppBar>
             <Drawer
