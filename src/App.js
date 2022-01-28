@@ -25,13 +25,13 @@ function App() {
     return (
         <div className="App">
             <Routes>
-                <Route path="/" element={<AppContainer data={users} />} >
+                <Route path="/" element={<AppContainer data={users} />}>
                     <Route
                         path="/streamerslist"
                         element={<StreamList data={users} />}
                     />
                     <Route
-                        path="/streamers/:name"
+                        path="/streamerslist/:channel_id"
                         element={<StreamDetails data={users} />}
                     />
                 </Route>

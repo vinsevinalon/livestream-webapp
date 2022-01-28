@@ -33,34 +33,43 @@ import Grid from '@mui/material/Grid';
 import { CssBaseline } from '@mui/material';
 import Button from '@mui/material/Button';
 import { Link, Outlet } from 'react-router-dom';
-import StreamCards from './StreamCards';
 
-const drawerWidth = 240;
-
-const DrawerHeader = styled('div')(({ theme }) => ({
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
-}));
-
-export default function StreamList({ data }) {
+export default function StreamCards({data}) {
     return (
         <>
-            <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-                <DrawerHeader />
-                <Outlet/>
-                <h2>STREAMER LIST</h2>
-                <Grid
-                    container
-                    spacing={{ xs: 2, md: 4, lg: 8 }}
-                    columns={{ xs: 1, sm: 2, md: 6, lg: 12 }}
-                >
-                    <StreamCards data={data} />
+            {data.map((users, index) => (
+                <Grid item xs={2} sm={4} md={2} key={index}>
+                    <Card key={index}>
+                        <CardMedia
+                            component="img"
+                            height="300"
+                            image={users.cover_image}
+                        />
+                        <CardContent
+                            action={
+                                <IconButton aria-label="settings">
+                                    <MoreVertIcon />
+                                </IconButton>
+                            }
+                            title={users.nickname}
+                        >
+                            <CardActions>
+                                <Avatar
+                                    sx={{ width: 30, height: 30, mr: 2 }}
+                                    aria-label="recipe"
+                                    src={users.avatar}
+                                    name="Hello"
+                                ></Avatar>
+                                <Typography variant="subtitle1" component="h6">
+                                    <Link to={`/streamerslist/${users.channel_id}`}>
+                                        {users.nickname}
+                                    </Link>
+                                </Typography>
+                            </CardActions>
+                        </CardContent>
+                    </Card>
                 </Grid>
-            </Box>
+            ))}
         </>
     );
 }
